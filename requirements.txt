@@ -1,0 +1,13 @@
+numpy<2
+torch
+langchain
+langgraph
+chromadb
+langchain-community
+langchain-groq
+python-dotenv
+sentence-transformers
+streamlit
+rouge-score
+scikit-learn
+langchain-huggingface

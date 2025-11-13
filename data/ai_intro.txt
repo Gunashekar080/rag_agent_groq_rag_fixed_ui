@@ -1,0 +1,9 @@
+Artificial Intelligence (AI) refers to computer systems that can perform tasks
+that typically require human intelligence. These tasks include understanding natural language,
+recognizing patterns, solving problems, and making decisions.
+
+Key concepts in AI include:
+- Machine Learning (ML): Algorithms that learn from data.
+- Deep Learning: Neural networks with many layers.
+- Natural Language Processing (NLP): Understanding and generating human language.
+- Computer Vision: Interpreting visual information from images or videos.
