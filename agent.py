@@ -15,7 +15,7 @@ from langgraph.graph import StateGraph, END
 load_dotenv()
 
 
-# ---------------- LLM + Embeddings ----------------
+# LLM + Embeddings 
 
 llm = ChatGroq(
     model_name="llama-3.1-8b-instant",
@@ -28,7 +28,7 @@ embeddings = HuggingFaceEmbeddings(
 )
 
 
-# ---------------- Vector DB ----------------
+#  Vector DB 
 
 def load_vector_db(data_path: str = "data"):
     loaders = [
@@ -58,7 +58,7 @@ def load_vector_db(data_path: str = "data"):
 VECTORDb = load_vector_db()
 
 
-# ---------------- Agent State ----------------
+#  Agent State 
 
 class AgentState(TypedDict):
     question: str
@@ -68,7 +68,7 @@ class AgentState(TypedDict):
     reflection: str
 
 
-# ---------------- Nodes ----------------
+#  Nodes 
 
 def plan_step(state: AgentState) -> AgentState:
     q = state["question"]
@@ -174,7 +174,7 @@ JUSTIFICATION: <one sentence>
     return state
 
 
-# ---------------- Build Graph ----------------
+#  Build Graph 
 
 graph = StateGraph(AgentState)
 graph.add_node("plan", plan_step)

@@ -12,7 +12,7 @@ from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage
 from langgraph.graph import StateGraph, END
 
-# ---------------- Load secrets ----------------
+# Load secrets 
 load_dotenv()
 API_KEY = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
 
@@ -20,7 +20,7 @@ if not API_KEY:
     st.error(" Missing GROQ_API_KEY in .env or Streamlit Secrets.")
     st.stop()
 
-# ---------------- LLM + Embeddings ----------------
+# LLM + Embeddings 
 llm = ChatGroq(
     model_name="llama-3.1-8b-instant",
     temperature=0.0,
@@ -31,7 +31,7 @@ embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2"
 )
 
-# ---------------- Vector DB ----------------
+# Vector DB 
 @st.cache_resource
 def load_vector_db(data_path: str = "data"):
     loaders = [
@@ -59,7 +59,7 @@ def load_vector_db(data_path: str = "data"):
 
 VECTORDb = load_vector_db()
 
-# ---------------- Agent State ----------------
+#  Agent State
 class AgentState(TypedDict):
     question: str
     plan: str
@@ -67,7 +67,7 @@ class AgentState(TypedDict):
     answer: str
     reflection: str
 
-# ---------------- Nodes ----------------
+#  Nodes 
 def plan_step(state: AgentState) -> AgentState:
     q = state["question"]
     prompt = f"""You are a planner in a RAG system.
@@ -131,7 +131,7 @@ JUSTIFICATION: <short reason>
     state["reflection"] = result
     return state
 
-# ---------------- Build Graph ----------------
+# Build Graph 
 graph = StateGraph(AgentState)
 graph.add_node("plan", plan_step)
 graph.add_node("retrieve", retrieve_step)
@@ -146,7 +146,7 @@ graph.add_edge("reflect", END)
 
 APP = graph.compile()
 
-# ---------------- Streamlit UI ----------------
+#  Streamlit UI
 def main():
     st.title("🤖 RAG LangGraph Agent (Groq + Chroma + HF Embeddings)")
     st.write("Ask any question and the RAG agent will plan, retrieve, answer, and reflect.")
